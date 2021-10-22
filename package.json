@@ -1,0 +1,27 @@
+{
+  "name": "node_calendar_api",
+  "version": "1.0.0",
+  "description": "Node Calendar API",
+  "main": "index.js",
+  "scripts": {
+    "prod": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoncalojlPinto/node_calendar_api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GoncalojlPinto/node_calendar_api/issues"
+  },
+  "homepage": "https://github.com/GoncalojlPinto/node_calendar_api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
