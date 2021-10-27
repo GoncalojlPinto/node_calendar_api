@@ -7,7 +7,7 @@ app.get("/", (req, rep) => {
 });
 
 app.get("/appointments", (req, res) => {
-    res.json([{Year: "2020", Mouth: "July", Hour: "15:00"}])
+    res.json([{Year: "2020", Mouth: "July",Day:' Hour: "15:00"}])
 })
 
 app.get("/appointments/:agent", (req, res) => {
