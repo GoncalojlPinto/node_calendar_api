@@ -1,30 +1,17 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const Appointment = require("./models/appointment");
 const app = express();
 const PORT = 5005;
 
-app.get("/", (req, rep) => {
-    rep.send("App Init TEST")
-});
 
-app.get("/appointments", (req, res) => {
-    res.json([{Year: "2020", Mouth: "July",Day:' Hour: "15:00"}])
-})
+//DB Connection
+mongoose.connect('  mongodb://localhost:27017/Calendar');
 
-app.get("/appointments/:agent", (req, res) => {
-    res.send(`Returns the agent with ID: ${req.params.agent}`)
-})
+//Express Configs
+app.use(express.json());
+app.use("/api", apiRouter);
+app.use("/", defaultRouter);
 
-app.post("/appointments", (req, res) => {
-    console.log(req.body)
-    res.send("Posts an Appointment")
-})
-
-app.put("/appointments/:id", (req, res) => {
-    res.send("Updates an appointment")
-})
-
-app.delete("/appointment/:id", (req, res) => {
-    res.send("Deletes an appointment")
-})
 
 app.listen(PORT, () => { console.log(`Server is running on port: ${PORT}`) });
