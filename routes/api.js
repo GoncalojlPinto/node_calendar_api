@@ -3,10 +3,10 @@ const appointmentController = require("../controllers/appointmentController");
 const router = express.Router();
 
 
-router.get("/appointments", appointmentsController.index)
-router.get("/appointments/:id", appointmentsController.show)
-router.post("/appointments", appointmentsController.create)
-router.put("/appointments/:id", appointmentsController.update)
-router.delete("/appointments/:id", appointmentsController.destroy)
+router.get("/appointments", appointmentController.index)
+router.get("/appointments/:id", appointmentController.show)
+router.post("/appointments", appointmentController.create)
+router.put("/appointments/:id", appointmentController.update)
+router.delete("/appointments/:id", appointmentController.destroy)
 
 module.exports = router;
