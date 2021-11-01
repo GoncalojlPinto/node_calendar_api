@@ -15,10 +15,9 @@ const Appointment = mongoose.model('appointment', {
         required: [true, 'Hour is required'],
         trim: true
     },
-
-    mouth: {
+    month: {
         type: String,
-        required: [true, 'Mouth is required'],
+        required: [true, 'Month is required'],
 
     },
 

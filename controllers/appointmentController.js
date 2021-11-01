@@ -37,7 +37,7 @@ const create = async (req, res) => {
             appointment.hour = req.body.hour;
             appointment.dayOfWeek = req.body.dayOfWeek;
             appointment.day = req.body.day;
-            appointment.mouth = req.body.mouth;
+            appointment.month = req.body.month;
             appointment.year = req.body.year;
             appointment.user_data.agent_id = req.body.user_data.agent_id;
             const saved = await appointment.save();
