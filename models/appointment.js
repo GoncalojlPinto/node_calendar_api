@@ -6,15 +6,13 @@ const Appointment = mongoose.model('appointment', {
         required: [true, 'Hour is required'],
         trim: true
     },
-    dayOfWeek: {
-        type: String,
-    },
-
+    
     day: {
         type: String,
         required: [true, 'Hour is required'],
         trim: true
     },
+
     month: {
         type: String,
         required: [true, 'Month is required'],
@@ -33,7 +31,12 @@ const Appointment = mongoose.model('appointment', {
             required: [true, 'Calendar should have agent_id for identification']
         }
         
-    } 
+    },
+
+    isAccepted : {
+        type: Boolean,
+        default: null
+    }
 })
 
 
