@@ -1,26 +1,14 @@
 const express = require("express");
+const userController = require("../controllers/userController");
 const router = express.Router();
-const { check, validationResult } = require("express-validator");
+const verifyToken = require('../verifyToken');
 
-
-router.post('/register', [
-    check("email").isEmail(),
-    check('password').isLength({min: 8})
-
-],  (req, res) => {
-    const { email , password }= req.body;
-    
-    
-    const errors = validationResult(req);
-
-    if(!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array()
-        })
-    }
-
-    res.send('VALIDATED');
-});
+router.get("/all", verifyToken, userController.index);
+router.get("/:id", verifyToken, userController.show);
+router.put("/:id", verifyToken, userController.update);
+router.post("/", userController.create);
+router.post("/login", userController.login);
+router.delete("/:id", verifyToken, userController.destroy);
 
 
 module.exports = router;
