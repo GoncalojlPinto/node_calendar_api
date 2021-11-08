@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose  = require("mongoose");
 const Appointment = require("../models/appointment");
 
+
 const index = async (req, res) => {
     res.json(await Appointment.find({}));
 }
@@ -57,7 +58,9 @@ const create = async (req, res) => {
                 res.status(404).json({error: "Appointment not found"})
             
             }else{
-                return appointment.delete();
+                const deleted = await appointment.delete();
+                return res.status(200).json({Sucess : `appointment with ID ${appointment.id} deleted from Database.`})
+
             }
     }catch(e){
         const { errors, statusCode } = handleErrors(e);
