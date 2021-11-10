@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 function verifyToken  (req, res, next) {
     if(!req.headers['authorization'])
-        return next(res.status(403).json({Error: 'Unauthorized'}))
+        return next(res.status(401).json({Error: 'Unauthorized, access token is missing or invalid'}))
     
         const authHeader = req.headers['authorization'];
         const bearerToken = authHeader.split(' ');

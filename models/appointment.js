@@ -8,8 +8,8 @@ const Appointment = mongoose.model('appointment', {
     },
     
     day: {
-        type: String,
-        required: [true, 'Hour is required'],
+        type: Number,
+        required: [true, 'Day is required'],
         trim: true
     },
 
@@ -20,15 +20,14 @@ const Appointment = mongoose.model('appointment', {
     },
 
     year: {
-        type: String,
+        type: Number,
         required: [true, 'Year is required'],
         trim: true
     },
 
     user_data: {
         agent_id: {
-            type: String,
-            required: [true, 'Calendar should have agent_id for identification']
+            type: Number
         }
         
     },

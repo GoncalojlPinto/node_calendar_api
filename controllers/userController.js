@@ -3,7 +3,6 @@ const mongoose  = require("mongoose");
 const User = require("../models/user");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const verify = require("../verifyToken");
 
 
 const index = async (req, res) => {
@@ -29,8 +28,9 @@ const create = async (req, res) => {
     const user = new User({
         username: req.body.username,
         email: req.body.email,
-        password: hashedPassword});
-try {
+        password: hashedPassword
+    });
+    try {
     if(emailChecker)
         return res.status(400).json({error: 'This Email already exists'})
         const saved = await user.save();
@@ -43,22 +43,22 @@ try {
 
 const update = async (req, res) => {
     
+    const validId = await mongoose.Types.ObjectId.isValid(req.params.id);
     const user = await User.findById(req.params.id);
-
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const hashedPassword = await bcrypt.hash(user.password, salt);
+    
     
     try{
-        if(user === null) {
-            res.status(404).json({error: "user not found"})
+        if(validId) {
+            user.username = req.body.username;
+            user.email = req.body.email;
+            user.password = hashedPassword;
+            const saved = await user.save();
+            return res.status(200).json(saved);
         
     }else{
-        user.username = req.body.username;
-        user.email = req.body.email;
-        user.password = hashedPassword;
-        const saved = await user.save();
-        return res.status(200).json(saved);
-        
+        res.status(404).json({error: "user not found"})  
     }
     }catch(e){
         const { errors, statusCode } = handleErrors(e);
@@ -68,14 +68,15 @@ const update = async (req, res) => {
 
 
     const destroy = async (req, res) => {
-        const user = await User.findById(req.params.id);
+        const valid = await mongoose.Types.ObjectId.isValid(req.params.id);
         try {
-            if (user === null) {
-                res.status(404).json({error: "user not found"})
-            
-            }else{
+            if(valid){
+                const user = await User.findById(req.params.id);
                 const deleted = await user.delete();
                 return res.status(200).json({Sucess : `User ${user.username} with ID ${user.id} deleted from Database.`})
+            
+            }else{
+                res.status(404).json({error: "user not found"})
 
             }
     }catch(e){

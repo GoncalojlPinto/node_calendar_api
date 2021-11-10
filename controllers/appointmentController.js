@@ -10,18 +10,23 @@ const index = async (req, res) => {
 const show  = async (req, res) => {
     try {
         appointment = await Appointment.findById(req.params.id);
-        return appointment === null ? res.status(404).json({error: "Agent ID not found"}) : res.status(200).json(appointment);
+        return appointment === null ? res.status(404).json({error: "Invalid Appointment ID"}) : res.status(200).json(appointment);
     }catch(e) {
-        res.status(400).json({error: "Invalid Agent ID"})
+        res.status(400).json({error: "Invalid Appointment ID"})
     }
 
 }
 
 const create = async (req, res) => {
     const appointment = new Appointment(req.body);
+    const date = new Date();
+    const year = date.getFullYear();
     try {
+        if (req.body.year < year){
+            res.status(400).json({Error: `Year must be equal or higher then ${year}`})
+        }else{
         const saved = await appointment.save();
-        res.status(201).json(saved);
+        res.status(201).json(saved);}
     }catch(e){
         const {errors, statusCode } = handleErrors(e)
         res.status(statusCode).json({errors});
@@ -68,6 +73,21 @@ const create = async (req, res) => {
     }
 }
 
+const searchAgent = async (req, res) => {
+    try {
+        if(res === []){
+            res.status(404).json({error: "Agent ID not found"})
+        }
+        appointment = await Appointment.find({ 'user_data': {'agent_id' : req.params.id }});
+        return appointment.length === 0 ? res.status(404).json({error: "Agent ID not found"}) : res.status(200).json(appointment);
+        
+    }catch(e) {
+        res.status(400).json({error: "Invalid agent ID"})
+    }
+
+    }
+
+
 const handleErrors = (e) => {
     if(e instanceof mongoose.Error.ValidationError){
         console.log(e.errors);
@@ -84,5 +104,6 @@ module.exports = {
     show,
     create,
     update,
-    destroy
+    destroy,
+    searchAgent
 }
