@@ -285,65 +285,6 @@ paths:
                              $ref: '#components/schemas/error'
                             example:
                                 Error: Internal server error
-
-    /appointments/agent/{id}:
-        get:
-            summary: Returns all appointment from an Agent
-            description: allows to search by an agent ID to get all his appointments
-            parameters:
-            - name: id
-              in: path
-              description: ID of the Agent
-              required: true
-
-            tags: [Appointments]
-            application/json:
-                schemas:
-                    $ref: '#components/schemas/Appointment'
-            security:
-                - bearerAuth: []
-            responses:
-                200:
-                    description: Ok
-                    content:
-                        application/json:
-                            schemas:
-                             $ref: '#components/schemas/Appointment'
-                            example:
-                                user_data:
-                                    agent_id: 5
-                                _id: 618adb937166d222f24c14b8
-                                hour: 15:00
-                                day: 19
-                                month: January
-                                year: 2021
-                                isAccepted: null
-                                __v: 0
-                400:
-                    description: Bad Request
-                    content:
-                        application/json:
-                            schemas:
-                             $ref: '#components/schemas/error'
-                            example:
-                                errors:
-                                    Error: Invalid agent id
-                404:
-                    description: Not Found
-                    content:
-                        application/json:
-                            schemas:
-                             $ref: '#components/schemas/error'
-                            example:
-                                Error: Agent id not found
-                500:
-                    description: Internal server error
-                    content:
-                        application/json:
-                            schemas:
-                             $ref: '#components/schemas/error'
-                            example:
-                                Error: Internal server error
     /user/all:
         get:
             summary: Returns all Users

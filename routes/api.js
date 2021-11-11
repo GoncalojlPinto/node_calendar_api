@@ -9,6 +9,5 @@ router.get("/appointments/:id", verifyToken, appointmentController.show)
 router.post("/appointments", appointmentController.create)
 router.put("/appointments/:id", verifyToken,  appointmentController.update)
 router.delete("/appointments/:id", verifyToken, appointmentController.destroy)
-router.get("/appointments/agent/:id", verifyToken, appointmentController.searchAgent);
 
 module.exports = router;

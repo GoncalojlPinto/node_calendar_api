@@ -36,7 +36,7 @@ const Appointment = mongoose.model('appointment', {
         type: Boolean,
         default: null
     }
-})
+}, "appointments");
 
 
 module.exports = Appointment;
